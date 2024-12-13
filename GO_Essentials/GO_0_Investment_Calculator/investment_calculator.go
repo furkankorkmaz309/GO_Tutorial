@@ -5,68 +5,43 @@ import (
 	"math"
 )
 
+const inflationRate = 2.5
+
 func main() {
-	// SOLUTION 1
-	var investmentAmount = 1000
-	var expectedReturnRate = 5.5
-	var years = 10
 
-	//investmentAmount and years variables should not be written as int, they should be converted to float64
-	var futureValue = float64(investmentAmount) * math.Pow((1+expectedReturnRate/100), float64(years))
-	fmt.Println("Solution 1 :", futureValue)
+	var investmentAmount float64
+	var years float64
+	expectedReturnRate := 5.5
 
-	//
-	// SOLUTION 2
-	var investmentAmount2 float64 = 1000
-	var expectedReturnRate2 float64 = 5.5
-	var years2 float64 = 10
+	outputText("Investment Amount: ")
+	fmt.Scan(&investmentAmount)
 
-	var futureValue2 = investmentAmount2 * math.Pow((1+expectedReturnRate2/100), years2)
-	fmt.Println("Solution 2 :", futureValue2)
+	outputText("Expected Return Rate: ")
+	fmt.Scan(&expectedReturnRate)
 
-	//
-	// SOLUTION 3
-	investmentAmount3, years3, expectedReturnRate3 := 1000.0, 10.0, 5.5
+	outputText("Years: ")
+	fmt.Scan(&years)
 
-	var futureValue3 = investmentAmount3 * math.Pow((1+expectedReturnRate3/100), years3)
-	fmt.Println("Solution 3 :", futureValue3)
+	futureValue, futureRealValue := calculateFutureValues(investmentAmount, expectedReturnRate, years)
+	//futureValue := investmentAmount * math.Pow(1+expectedReturnRate/100, years)
+	//futureRealValue := futureValue / math.Pow(1+inflationRate/100, years)
 
-	//
-	// PART 2
-	fmt.Println("")
-	fmt.Println("*** PART 2 ***")
+	formattedFV := fmt.Sprintf("Future Value: %.1f\n", futureValue)
+	formattedRFV := fmt.Sprintf("Future Value (adjusted for Inflation): %.1f\n", futureRealValue)
+	// outputs information
+	// fmt.Println("Future Value:", futureValue)
+	// fmt.Printf("Future Value: %.1f\nFuture Value (adjusted for Inflation): %.1f", futureValue, futureRealValue)
+	// fmt.Println("Future Value (adjusted for Inflation):", futureRealValue)
+	fmt.Print(formattedFV, formattedRFV)
+}
 
-	const inflationRate float64 = 2.5
-	futureRealValue := futureValue3 / math.Pow(1+inflationRate/100, years3)
+// PART 1 - FUNCTIONS
+func outputText(text string) {
+	fmt.Println(text)
+}
 
-	fmt.Println(futureRealValue)
-
-	//
-	// PART 3
-	fmt.Println("")
-	fmt.Println("*** PART 3 ***")
-
-	const inflationRate4 = 6.5
-	var investmentAmount4 float64 = 1000
-	// OR
-	// var investmentAmount4 float64
-	years4 := 10.0
-	expectedReturnRate4 := 5.5
-
-	fmt.Print("Investment Amount : ")
-	fmt.Scan(&investmentAmount4)
-	// If const exists, scan operation cannot be applied on it
-
-	fmt.Print("Years : ")
-	fmt.Scan(&years4)
-
-	fmt.Print("Expected Return Rate : ")
-	fmt.Scan(&expectedReturnRate4)
-
-	futureValue4 := investmentAmount4 * math.Pow(1+expectedReturnRate4/100, years4)
-	futureRealValue4 := futureValue4 / math.Pow(1+inflationRate4/100, years4)
-
-	fmt.Println(futureValue4)
-	fmt.Println(futureRealValue4)
-
+func calculateFutureValues(investmentAmount float64, expectedReturnRate float64, years float64) (float64, float64) {
+	fv := investmentAmount * math.Pow(1+expectedReturnRate/100, years)
+	rfv := fv / math.Pow(1+inflationRate/100, years)
+	return fv, rfv
 }

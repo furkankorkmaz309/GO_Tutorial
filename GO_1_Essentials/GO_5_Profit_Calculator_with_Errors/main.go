@@ -43,7 +43,7 @@ func getUserInput(infoText string) (float64, error) {
 	fmt.Print(infoText)
 	fmt.Scan(&userInput)
 	if userInput <= 0 {
-		return 0, errors.New("Value must be positive.")
+		return 0, errors.New("value must be positive")
 	}
 	return userInput, nil
 }

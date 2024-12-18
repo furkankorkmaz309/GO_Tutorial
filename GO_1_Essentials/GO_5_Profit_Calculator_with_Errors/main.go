@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-const resultFile = "results.txt"
+const resultFile = "result.txt"
 
 func storeResults(ebt float64, profit float64, ratio float64) {
 	results := fmt.Sprintf("EBT: %.1f\nProfit: %.1f\nRatio: %.1f\n", ebt, profit, ratio)
